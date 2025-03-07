@@ -12,3 +12,11 @@ for line in f.readlines():
     c.execute("INSERT INTO users VALUES (?,?,?,?)", bits)
 db.commit()
 
+c.execute("DROP TABLE IF EXISTS books")
+c.execute("CREATE TABLE books (id INT PRIMARY KEY, title TEXT, author TEXT, genre TEXT, year INT)")
+
+f = open("books.csv","r")
+for line in f.readlines():
+    bits = line.strip().split(",")
+    c.execute("INSERT INTO books VALUES (?,?,?,?,?)", bits)
+db.commit()

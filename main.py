@@ -12,10 +12,12 @@ class App(tk.Tk):
         self.title("Library Database Demo")
 
         # This dictionary stores allthe frames in the database,which have been imported from separate files
-        self.frames = {"login":loginFrame(self), "books":bookFrame(self)}
-
         self.db = sql.connect("library.db")
         self.cursor = self.db.cursor()
+        
+        self.frames = {"login":loginFrame(self), "books":bookFrame(self)}
+
+        
         
         self.rowconfigure(0, weight=100)
         self.columnconfigure(0, weight=100)
@@ -30,6 +32,10 @@ class App(tk.Tk):
         results = results.fetchall()
         for line in results:
             print(", ".join(line))
+        results = self.cursor.execute("SELECT * from books")
+        results = results.fetchall()
+        for line in results:
+            print(line)
 
     def switchFrame(self,frame):
         # this function switches the currently visible frame.
@@ -50,4 +56,3 @@ class App(tk.Tk):
             e1.grid(row=0,column=0, sticky="NSEW")
 
 main = App()
-
