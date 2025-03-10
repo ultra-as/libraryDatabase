@@ -20,3 +20,6 @@ for line in f.readlines():
     bits = line.strip().split(",")
     c.execute("INSERT INTO books VALUES (?,?,?,?,?)", bits)
 db.commit()
+
+c.execute("DROP TABLE IF EXISTS owned")
+c.execute("CREATE TABLE owned (username TEXT, id INT, PRIMARY KEY (username,id))")
